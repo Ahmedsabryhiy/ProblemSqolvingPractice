@@ -18,7 +18,7 @@
             while (choice != "exit")
             {
 
-
+                Console .Clear();
 
                 Console.WriteLine("1- Count Occurrences");
                 Console.WriteLine("2- Reverse Order Of Words");
@@ -34,6 +34,7 @@
                 Console.WriteLine("10- Remove Duplicates from an Array");
                 Console.WriteLine("11- Sum of Digits");
                 Console.WriteLine("12- Find Second Largest Number");
+                Console.WriteLine("13- Binary Search");
 
                 Console.WriteLine("0- Exit");
 
@@ -86,6 +87,11 @@
                         int[] ints = { 1, 5, 3, 4, 5, 6, 7 };
                            Console.WriteLine ( FindSecondLargestNumber  (ints));
 
+                            break;
+                        case 13:
+                        int[] ints2 = { 1, 3, 5, 7, 9 };
+                        int index    =   BinarySearch( ints2, 0, ints2.Length - 1,  7);
+                         Console.WriteLine($"The index of the number is: {index}");
                             break;
                     case 0:
                         return;
@@ -354,6 +360,26 @@
                
             }
             return secondLargest;
+
+        }
+        static int BinarySearch(int[] a,int start,int end,int number)
+        {
+           while(start <= end)
+            {
+                 int md=(start+end)/2;
+                if (a[md] == number)
+                    return md;
+                else if (a[md] < number)
+                {
+                    start = md + 1;
+                  
+                }
+                else
+                    end = md - 1;
+               
+            }
+            return -1;       
+
 
         }
 
