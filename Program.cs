@@ -18,7 +18,9 @@
             while (choice != "exit")
             {
 
-                Console .Clear();
+
+                Console.Clear();
+
 
                 Console.WriteLine("1- Count Occurrences");
                 Console.WriteLine("2- Reverse Order Of Words");
@@ -31,11 +33,14 @@
                 Console.WriteLine("7- Remove Duplicates from an Array");
                 Console.WriteLine("8- Factorial of a number");
                 Console.WriteLine("9- FizzBuzz Problem");
+
                 Console.WriteLine("10- Remove Duplicates from an Array");
                 Console.WriteLine("11- Sum of Digits");
                 Console.WriteLine("12- Find Second Largest Number");
                 Console.WriteLine("13- Binary Search");
                 Console.WriteLine("14- Reverse a singly linked list");
+                Console.WriteLine("15- Find all pairs of an integer array whose sum is equal to a given number");
+
 
                 Console.WriteLine("0- Exit");
 
@@ -81,22 +86,29 @@
                         int[] result1 = RemoveDuplicate(arr2);
                         Console.WriteLine($"The unique elements are: {string.Join(", ", result1)}");
                         break;
-                        case 11:
+
+                    case 11:
                         SumOfDigitsWithoutDivision(14789);
                         break;
-                        case 12:
+                    case 12:
                         int[] ints = { 1, 5, 3, 4, 5, 6, 7 };
-                           Console.WriteLine ( FindSecondLargestNumber  (ints));
+                        Console.WriteLine(FindSecondLargestNumber(ints));
 
-                            break;
-                        case 13:
+                        break;
+                    case 13:
                         int[] ints2 = { 1, 3, 5, 7, 9 };
-                        int index    =   BinarySearch( ints2, 0, ints2.Length - 1,  7);
-                         Console.WriteLine($"The index of the number is: {index}");
-                            break;
-                        case 14:
+                        int index = BinarySearch(ints2, 0, ints2.Length - 1, 7);
+                        Console.WriteLine($"The index of the number is: {index}");
+                        break;
+                    case 14:
                         ReverseSinglyLinkedList();
-                           break;
+                        break;
+                        case 15:
+ int[]                  arr3 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
+                        int target = 30;
+                        FindAllPairsGivenSumOfTarget(arr3, target);
+                        break;
+
                     case 0:
                         return;
                     default:
@@ -277,11 +289,12 @@
                 }
                 alreadyExists = false;
 
+
             }
             return result;
 
         }
-    
+
 
 
         // Method to compute the sum of digits without using '/' or '%' operators.
@@ -349,10 +362,10 @@
 
             int largest = int.MinValue;
             int secondLargest = int.MinValue;
-            for (int i = 0; i < a.Length; i++) 
-            { 
+            for (int i = 0; i < a.Length; i++)
+            {
 
-               if (a[i] > largest)
+                if (a[i] > largest)
                 {
                     secondLargest = largest;
                     largest = a[i];
@@ -361,44 +374,101 @@
                 {
                     secondLargest = a[i];
                 }
-               
+
             }
             return secondLargest;
 
         }
-        static int BinarySearch(int[] a,int start,int end,int number)
+        static int BinarySearch(int[] a, int start, int end, int number)
         {
-           while(start <= end)
+            while (start <= end)
             {
-                 int md=(start+end)/2;
+                int md = (start + end) / 2;
                 if (a[md] == number)
                     return md;
                 else if (a[md] < number)
                 {
                     start = md + 1;
-                  
+
                 }
                 else
                     end = md - 1;
-               
+
             }
-            return -1;       
+            return -1;
 
 
         }
         static void ReverseSinglyLinkedList()
         {
             LinkedList myLinkedList = new LinkedList();
-             
-          
+
+
             myLinkedList.AddFirst(2);
             myLinkedList.AddFirst(3);
             myLinkedList.AddFirst(4);
-            myLinkedList .Reverse();
+            myLinkedList.Reverse();
             myLinkedList.PrintList();
+
+
+        } 
+        static void FindAllPairsGivenSumOfTarget(int[]a,int target)
+        {
+            
+          
+          for (int i = 0; i < a.Length; i++)
+            {
+                for (int j = i+1;j < a.Length; j++)
+                {
+                    if (a[j]+ a[i] == target)
+                    {
+                        Console.WriteLine($"({a[i]},{a[j]})");
+                    }
+                }
+            }
+         
+
         }
+    
 
 
+        //// Method to compute the sum of digits without using '/' or '%' operators.
+        //public static int SumOfDigitsWithoutDivision(int number)
+        //{
+        //    // Handle negative numbers manually.
+        //    if (number < 0)
+        //    {
+        //        number = -number;
+        //    }
+
+        //    int sum = 0;
+
+        //    // Process until number is reduced to 0.
+        //    while (number > 0)
+        //    {
+        //        int quotient = 0;
+        //        int remainder = number; // Start with the full number.
+
+        //        // Repeatedly subtract 10 from 'remainder' until it is less than 10.
+        //        // The number of times we subtract 10 gives us the quotient.
+        //        while (remainder >= 10)
+        //        {
+        //            remainder -= 10;  // Subtract 10.
+        //            quotient++;       // Count how many times we subtracted.
+        //        }
+
+        //        // 'remainder' now represents the last digit (like number % 10).
+        //        sum += remainder;
+
+        //        // 'quotient' simulates number / 10. Update number.
+        //        number = quotient;
+        //    }
+
+        //    return sum;
+
+        //}
+
+        
     }
 
 
