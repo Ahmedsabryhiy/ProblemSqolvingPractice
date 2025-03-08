@@ -35,6 +35,7 @@
                 Console.WriteLine("11- Sum of Digits");
                 Console.WriteLine("12- Find Second Largest Number");
                 Console.WriteLine("13- Binary Search");
+                Console.WriteLine("14- Reverse a singly linked list");
 
                 Console.WriteLine("0- Exit");
 
@@ -93,6 +94,9 @@
                         int index    =   BinarySearch( ints2, 0, ints2.Length - 1,  7);
                          Console.WriteLine($"The index of the number is: {index}");
                             break;
+                        case 14:
+                        ReverseSinglyLinkedList();
+                           break;
                     case 0:
                         return;
                     default:
@@ -381,6 +385,17 @@
             return -1;       
 
 
+        }
+        static void ReverseSinglyLinkedList()
+        {
+            LinkedList myLinkedList = new LinkedList();
+             
+          
+            myLinkedList.AddFirst(2);
+            myLinkedList.AddFirst(3);
+            myLinkedList.AddFirst(4);
+            myLinkedList .Reverse();
+            myLinkedList.PrintList();
         }
 
 
