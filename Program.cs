@@ -40,7 +40,7 @@
                 Console.WriteLine("13- Binary Search");
                 Console.WriteLine("14- Reverse a singly linked list");
                 Console.WriteLine("15- Find all pairs of an integer array whose sum is equal to a given number");
-
+                Console.WriteLine("16- Rotate an array by K times");
 
                 Console.WriteLine("0- Exit");
 
@@ -103,12 +103,22 @@
                     case 14:
                         ReverseSinglyLinkedList();
                         break;
-                        case 15:
- int[]                  arr3 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
+                    case 15:
+                        int[] arr3 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
                         int target = 30;
                         FindAllPairsGivenSumOfTarget(arr3, target);
                         break;
+                    case 16:
+                        int[] arr4 = { 1, 2, 3, 4, 5, 6, 7 };
+                        int k = 3;
 
+                        Console.WriteLine("Original Array: " + string.Join(", ", arr4));
+
+                        RotateArray(arr4, k);
+
+                        Console.WriteLine("Rotated Array: " + string.Join(", ", arr4));
+
+                        break;
                     case 0:
                         return;
                     default:
@@ -411,25 +421,47 @@
             myLinkedList.PrintList();
 
 
-        } 
-        static void FindAllPairsGivenSumOfTarget(int[]a,int target)
+        }
+        static void FindAllPairsGivenSumOfTarget(int[] a, int target)
         {
-            
-          
-          for (int i = 0; i < a.Length; i++)
+
+
+            for (int i = 0; i < a.Length; i++)
             {
-                for (int j = i+1;j < a.Length; j++)
+                for (int j = i + 1; j < a.Length; j++)
                 {
-                    if (a[j]+ a[i] == target)
+                    if (a[j] + a[i] == target)
                     {
                         Console.WriteLine($"({a[i]},{a[j]})");
                     }
                 }
             }
-         
+
 
         }
-    
+        public static void RotateArray(int[] a, int k)
+        {
+            int n = a.Length;
+            k = k % n;
+            Reverse(a, 0, k - 1);
+            Reverse(a, k, n - 1);
+            Reverse(a, 0, n - 1);
+           
+
+
+        }
+        public static void Reverse(int[] arr, int start, int end)
+        {
+            while (start < end)
+            {
+                int temp = arr[start];
+                arr[start] = arr[end];
+                arr[end] = temp;
+                start++;
+                end--;
+            }
+        }
+
 
 
         //// Method to compute the sum of digits without using '/' or '%' operators.
@@ -468,7 +500,7 @@
 
         //}
 
-        
+
     }
 
 
