@@ -1,4 +1,6 @@
-﻿namespace ProblemSqolvingPractice
+﻿using System.ComponentModel;
+
+namespace ProblemSqolvingPractice
 {
     internal class Program
     {
@@ -41,7 +43,8 @@
                 Console.WriteLine("14- Reverse a singly linked list");
                 Console.WriteLine("15- Find all pairs of an integer array whose sum is equal to a given number");
                 Console.WriteLine("16- Rotate an array by K times");
-
+                Console.WriteLine("17-  Evaluate a Polish notation expression as array and return its value ");
+                Console .WriteLine("18- Balanced Parentheses Checker Using Stack");
                 Console.WriteLine("0- Exit");
 
                 Console.WriteLine("Enter the number of the problem you want to solve");
@@ -118,6 +121,24 @@
 
                         Console.WriteLine("Rotated Array: " + string.Join(", ", arr4));
 
+                        break;
+                    case 17:
+                        // Example: ["2", "1", "+", "3", "*"] should evaluate to 9
+                        string[] tokens = new string[] { "2", "1", "+", "3", "*" };
+                        int final = EvaluatePolishNotation(tokens);
+                        Console.WriteLine("The result is: " + final);
+                        // Expected output: The result is: 9
+                        break;
+                    case 18:
+
+                        // Test cases
+                        string test1 = "({[]})";
+                        string test2 = "({[})";
+                        string test3 = "a(b)c{d[e]f}g";
+
+                        Console.WriteLine($"Is \"{test1}\" balanced? {IsBalanced(test1)}");  // Expected: True
+                        Console.WriteLine($"Is \"{test2}\" balanced? {IsBalanced(test2)}");  // Expected: False
+                        Console.WriteLine($"Is \"{test3}\" balanced? {IsBalanced(test3)}");  // Expected: True
                         break;
                     case 0:
                         return;
@@ -446,7 +467,7 @@
             Reverse(a, 0, k - 1);
             Reverse(a, k, n - 1);
             Reverse(a, 0, n - 1);
-           
+
 
 
         }
@@ -461,49 +482,114 @@
                 end--;
             }
         }
+        public static int EvaluatePolishNotation(string[] tokens)
+        {
+            // Create a stack to hold integer operands.
+            Stack<int> stack = new Stack<int>();
+
+            // Iterate over each token in the input.
+            foreach (string token in tokens)
+            {
+                // If the token is one of the operators, perform the operation.
+                if (token == "+" || token == "-" || token == "*" || token == "/")
+                {
+                    // Pop the top two numbers. Note: The second popped is the first operand.
+                    int operand2 = stack.Pop();
+                    int operand1 = stack.Pop();
+                    int result = 0;
+
+                    // Determine the operator and compute the result.
+                    switch (token)
+                    {
+                        case "+":
+                            result = operand1 + operand2;
+                            break;
+                        case "-":
+                            result = operand1 - operand2;
+                            break;
+                        case "*":
+                            result = operand1 * operand2;
+                            break;
+                        case "/":
+                            result = operand1 / operand2;  // Assume valid integer division.
+                            break;
+                    }
+                    // Push the computed result back onto the stack.
+                    stack.Push(result);
+                }
+                else
+                {
+                    // Otherwise, the token is a number. Convert it to an integer and push it onto the stack.
+                    int number = int.Parse(token);
+                    stack.Push(number);
+                }
+            }
+            // After processing all tokens, the stack should have one element: the final result.
+            return stack.Pop();
+        }
+        public static bool IsBalanced(string input)
+        {
+            Stack<char> stack = new Stack<char>();
+
+            if (string.IsNullOrEmpty(input))
+            {
+                return false;
+            }
+
+            foreach (char c in input)
+            {
+                if (c == '(' || c == '{' || c == '[')
+                {
+                    stack.Push(c);
+                }
+                if (c == ')' || c == '}' || c == ']')
+                {
+                    if (stack.Count == 0)
+                    {
+                        return false;
+                    }
+                    stack.Pop();
+                }
+            }
+            return stack.Count == 0;
+
+            //foreach (char c in s)
+            //{
+            //    if (c == '(' || c == '{' || c == '[')
+            //    {
+            //        stack.Push(c);
+            //    }
+            //    if (c == ')' || c=='}'  ||c == ']')
+            //    {
+            //        if(stack.Count == 0)
+            //            { return false; }
+            //        stack.Pop ();
+            //    }
+            //    return stack.Count== 0;
+            //}
+
+        }
+        // Helper method to check if an opening and closing bracket match.
+        private static bool IsMatchingPair(char open, char close)
+        {
+            return (open == '(' && close == ')') ||
+                   (open == '{' && close == '}') ||
+                   (open == '[' && close == ']');
+        }
 
 
-
-        //// Method to compute the sum of digits without using '/' or '%' operators.
-        //public static int SumOfDigitsWithoutDivision(int number)
-        //{
-        //    // Handle negative numbers manually.
-        //    if (number < 0)
-        //    {
-        //        number = -number;
-        //    }
-
-        //    int sum = 0;
-
-        //    // Process until number is reduced to 0.
-        //    while (number > 0)
-        //    {
-        //        int quotient = 0;
-        //        int remainder = number; // Start with the full number.
-
-        //        // Repeatedly subtract 10 from 'remainder' until it is less than 10.
-        //        // The number of times we subtract 10 gives us the quotient.
-        //        while (remainder >= 10)
-        //        {
-        //            remainder -= 10;  // Subtract 10.
-        //            quotient++;       // Count how many times we subtracted.
-        //        }
-
-        //        // 'remainder' now represents the last digit (like number % 10).
-        //        sum += remainder;
-
-        //        // 'quotient' simulates number / 10. Update number.
-        //        number = quotient;
-        //    }
-
-        //    return sum;
-
-        //}
+        public static void PrintArray(int[] arr)
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.Write(arr[i] + " ");
+            }
+            Console.WriteLine();
+        }
 
 
     }
-
-
-
 }
+
+
 
