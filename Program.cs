@@ -44,7 +44,8 @@ namespace ProblemSqolvingPractice
                 Console.WriteLine("15- Find all pairs of an integer array whose sum is equal to a given number");
                 Console.WriteLine("16- Rotate an array by K times");
                 Console.WriteLine("17-  Evaluate a Polish notation expression as array and return its value ");
-                Console .WriteLine("18- Balanced Parentheses Checker Using Stack");
+                Console.WriteLine("18- Balanced Parentheses Checker Using Stack");
+                Console.WriteLine("19- Find missing number in array of integers");
                 Console.WriteLine("0- Exit");
 
                 Console.WriteLine("Enter the number of the problem you want to solve");
@@ -139,6 +140,11 @@ namespace ProblemSqolvingPractice
                         Console.WriteLine($"Is \"{test1}\" balanced? {IsBalanced(test1)}");  // Expected: True
                         Console.WriteLine($"Is \"{test2}\" balanced? {IsBalanced(test2)}");  // Expected: False
                         Console.WriteLine($"Is \"{test3}\" balanced? {IsBalanced(test3)}");  // Expected: True
+                        break;
+                    case 19:
+                        int[] anSortedArray = { 3, 7, 1, 2, 8, 4, 5 };
+                        int missingNumber = FindNumberMissing(anSortedArray);
+                        Console.WriteLine($"The missing number is: {missingNumber}");
                         break;
                     case 0:
                         return;
@@ -570,13 +576,28 @@ namespace ProblemSqolvingPractice
 
         }
         // Helper method to check if an opening and closing bracket match.
-        private static bool IsMatchingPair(char open, char close)
+        public static bool IsMatchingPair(char open, char close)
         {
             return (open == '(' && close == ')') ||
                    (open == '{' && close == '}') ||
                    (open == '[' && close == ']');
         }
 
+        public static int FindNumberMissing(int[] input)
+        {
+            int n = input.Length;
+            int expectedSum = (n + 1) * (n + 2) / 2;
+            int actualSum = 0;
+            for (int i = 0; i < n; i++)
+            {
+                actualSum += input[i];
+            }
+
+            int missingNumber = expectedSum - actualSum;
+            return missingNumber;
+
+
+        }
 
         public static void PrintArray(int[] arr)
         {
