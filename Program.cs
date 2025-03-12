@@ -46,6 +46,7 @@ namespace ProblemSqolvingPractice
                 Console.WriteLine("17-  Evaluate a Polish notation expression as array and return its value ");
                 Console.WriteLine("18- Balanced Parentheses Checker Using Stack");
                 Console.WriteLine("19- Find missing number in array of integers");
+                Console.WriteLine("20- Find Longest common  prfix  ");
                 Console.WriteLine("0- Exit");
 
                 Console.WriteLine("Enter the number of the problem you want to solve");
@@ -146,6 +147,11 @@ namespace ProblemSqolvingPractice
                         int missingNumber = FindNumberMissing(anSortedArray);
                         Console.WriteLine($"The missing number is: {missingNumber}");
                         break;
+                        case 20:
+                            string[] str= {"flower", "flow", "flight"};
+                            string longestCommonPrefix = LongestCommonPrefix(str);
+                            Console.WriteLine($"The longest common prefix is: {longestCommonPrefix}");
+                            break;
                     case 0:
                         return;
                     default:
@@ -597,6 +603,43 @@ namespace ProblemSqolvingPractice
             return missingNumber;
 
 
+        }
+        public static string LongestCommonPrefix(string[] str)
+        {
+            // implementation without using built-in methods
+            string prefix = str[0];
+            if (str.Length == 0 || str == null)
+            {
+                return "";
+            }
+            while (str.Length > 0)
+            {
+               
+                for (int i = 1; i < str.Length; i++)
+                {
+                    while (str[i].IndexOf(prefix) != 0)
+                    {
+                        prefix = prefix.Substring(0, prefix.Length - 1);
+                    }
+                }
+                if (prefix.Length == 0)
+                {
+                    return "";
+                }
+               
+
+            }
+
+            return prefix;
+
+        }
+        public static void PrintArray<T>(T[] arr)
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.Write(arr[i] + " ");
+            }
+            Console.WriteLine();
         }
 
         public static void PrintArray(int[] arr)
